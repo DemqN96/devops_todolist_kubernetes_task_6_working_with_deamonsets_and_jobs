@@ -1,37 +1,58 @@
-1. Застосування DaemonSet
+# Deployment Instructions for DaemonSet and CronJob
 
-Застосуйте маніфест:
+## 1. Deploy DaemonSet
 
-kubectl apply -f deamonset.yml
+1. Apply the DaemonSet manifest:
+   ```bash
+   kubectl apply -f daemonset.yml
 
 
-Перевірте стан усіх подів:
+Verify the DaemonSet pods:
 
 kubectl get pods -o wide
 
 
-Під’єднайтесь до контейнера busybox:
+Connect to the busybox container (namespace mateapp):
 
 kubectl exec -it -n mateapp busybox -- sh
 
-2. Застосування CronJob
+2. Deploy CronJob
 
-Застосуйте маніфест:
+Apply the CronJob manifest:
 
-kubectl apply -f cronJob.yml
+kubectl apply -f cronjob.yml
 
 
-Перевірте стан CronJob:
+Verify that the CronJob was created successfully:
 
 kubectl get cronjobs -o wide
 
 
-Приклад виводу:
+Example output:
 
 NAME            SCHEDULE      SUSPEND   ACTIVE   LAST SCHEDULE   AGE   CONTAINERS   IMAGES    SELECTOR
 hello-cronjob   */1 * * * *   False     0        <none>          29s   hello        busybox   <none>
 
+3. Validation Instructions
+Validate DaemonSet
 
-Перегляньте логи останнього запущеного пода:
+List all pods managed by the DaemonSet:
 
-kubectl logs hello-cronjob-28476958-vnkgh
+kubectl get pods -o wide
+
+
+Check logs from one of the DaemonSet pods:
+
+kubectl logs <daemonset-pod-name>
+
+Validate CronJob
+
+List all CronJobs:
+
+kubectl get cronjobs
+
+
+Identify the pod created by the CronJob and check logs:
+
+kubectl get pods | grep hello-cronjob
+kubectl logs <cronjob-pod-name>

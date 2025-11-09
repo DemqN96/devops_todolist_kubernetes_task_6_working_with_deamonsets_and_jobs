@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: todoapp-curl
-  namespace: todoapp
+  namespace: mateapp
   labels:
     app: todoapp
 spec:

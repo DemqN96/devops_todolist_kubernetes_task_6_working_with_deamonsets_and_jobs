@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: hello-cronjob
-  namespace: todoapp
+  namespace: mateapp
 spec:
   schedule: "*/4 * * * *"
   concurrencyPolicy: Allow
@@ -14,10 +14,17 @@ spec:
       template:
         spec:
           containers:
-          - name: hello
-            image: busybox
-            command: 
-            - /bin/sh
-            - -c 
-            - date; echo hello from kubernetes cluster
+            - name: hello
+              image: busyboxplus:curl
+              resources:
+                requests:
+                  cpu: "100m"
+                  memory: "128Mi"
+                limits:
+                  cpu: "200m"
+                  memory: "256Mi"
+              command:
+                - /bin/sh
+                - -c
+                - curl -s http://todoapp/api/health
           restartPolicy: OnFailure
