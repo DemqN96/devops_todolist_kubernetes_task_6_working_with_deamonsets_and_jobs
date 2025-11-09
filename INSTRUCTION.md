@@ -12,10 +12,6 @@ Verify the DaemonSet pods:
 kubectl get pods -o wide
 
 
-Connect to the busybox container (namespace mateapp):
-
-kubectl exec -it -n mateapp busybox -- sh
-
 2. Deploy CronJob
 
 Apply the CronJob manifest:
@@ -30,8 +26,8 @@ kubectl get cronjobs -o wide
 
 Example output:
 
-NAME            SCHEDULE      SUSPEND   ACTIVE   LAST SCHEDULE   AGE   CONTAINERS   IMAGES    SELECTOR
-hello-cronjob   */1 * * * *   False     0        <none>          29s   hello        busybox   <none>
+NAME            SCHEDULE      SUSPEND   ACTIVE   LAST SCHEDULE   AGE   CONTAINERS   IMAGES             SELECTOR
+hello-cronjob   */4 * * * *   False     0        <none>          29s   hello        busyboxplus:curl    <none>
 
 3. Validation Instructions
 Validate DaemonSet
